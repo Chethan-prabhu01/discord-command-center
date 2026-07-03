@@ -1,0 +1,34 @@
+### Health check
+GET http://localhost:5000/health
+
+### Register admin (or use `npm run seed-admin` instead)
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "changeme123"
+}
+
+### Login
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "changeme123"
+}
+
+### Get logs (paste token from login response)
+GET http://localhost:5000/api/logs
+Authorization: Bearer PASTE_TOKEN_HERE
+
+### Simulate a forged interaction (should return 401 - no valid signature)
+POST http://localhost:5000/api/interactions
+Content-Type: application/json
+X-Signature-Ed25519: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+X-Signature-Timestamp: 1234567890
+
+{
+  "type": 1
+}
